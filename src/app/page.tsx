@@ -66,21 +66,26 @@ export default function AssignmentList() {
   return (
     <>
       {/* Top Bar */}
-      <header className="w-full bg-white shadow-sm px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-        <h1 className="text-xl font-bold tracking-tight text-gray-800 text-center">
-          Vacca History Portal
-        </h1>
+      <header className="w-full bg-[#003B71] text-white px-6 py-4 flex items-center justify-between sticky top-0 z-10">
+        <h1 className="text-xl font-bold tracking-tight text-white">Mr. Vacca Advanced History Assignments</h1>
 
         {/* Optional items */}
         <nav className="flex items-center gap-4 text-sm text-gray-600">
-          <button className="hover:text-black transition">All Assignments</button>
-          <button className="hover:text-black transition">Submit</button>
-          <button className="hover:text-black transition">About</button>
+          <button
+            onClick={() => {
+              const html = document.documentElement;
+              html.classList.toggle("dark");
+            }}
+            className="ml-4 text-sm px-3 py-1 border border-white text-white rounded transition hover:bg-white hover:text-[#003B71]"
+          >
+            🌓 Toggle Theme
+          </button>
         </nav>
       </header>
-      <div className="flex min-h-screen bg-gray-100">
+      
+      <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
         {/* Sidebar */}
-        <aside className="w-64 bg-white border-r shadow-sm p-6 rounded-r-lg">
+        <aside className="w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 rounded-r-lg text-gray-900 dark:text-gray-200">
           <h2 className="text-xl font-bold mb-4">Filters</h2>
 
           <div className="mb-6">
@@ -126,10 +131,6 @@ export default function AssignmentList() {
 
         {/* Main Content */}
         <main className="flex-1 p-8">
-          <h1 className="text-3xl font-bold mb-6 text-center">
-            Vacca Advanced History Assignments
-          </h1>
-
           {/* Show search bar again for mobile */}
           <div className="lg:hidden mb-6">
             <Input
@@ -145,9 +146,9 @@ export default function AssignmentList() {
               <Card
                 key={index}
                 onClick={() => router.push(`/assignment/${assignment.id}`)}
-                className="shadow-lg hover:shadow-xl transition cursor-pointer"
+                className="border border-gray-200 dark:border-gray-700 shadow-lg hover:shadow-xl transition cursor-pointer rounded-lg transform hover:scale-[1.02] transition duration-200"
               >
-                {/* Image wrapped in padding for all sides */}
+                {/* Image */}
                 <div className="p-4 pb-0 pt-0">
                   <img
                     src={
@@ -161,8 +162,8 @@ export default function AssignmentList() {
                 </div>
 
                 <CardContent className="p-4 pb-0 pt-2">
-                  <p className="text-l font-semibold mb-2">{assignment.title}</p>
-                  <p className="text-sm text-gray-500">{assignment.authors}</p>
+                  <p className="text-l font-semibold mb-2 text-gray-800 dark:text-white">{assignment.title}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{assignment.authors}</p>
                 </CardContent>
               </Card>
             ))}
