@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "title": "El Salvador Civil War Research Paper",
+    "civilwar": "El Salvador",
+    "description": "hehehe",
+    "link": "/abc",
+    "authors": "2025-05-18",
+    "type": "Research Paper",
+    "image": "/images/el-salvador.jpg"
+  },
+  {
+    "id": "2",
+    "title": "daj",
+    "civilwar": "deiuhqfdeq",
+    "description": "fewaifha",
+    "link": "/hiusfea",
+    "authors": "2022-05-18",
+    "type": "Documentary",
+      "image": "none" 
+  }
+]
