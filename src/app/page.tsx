@@ -16,6 +16,7 @@ export interface Assignment {
   authors: string;
   type: string; 
   image?: string;
+  artistStatement?: string;
 }
 
 export default function AssignmentList() {

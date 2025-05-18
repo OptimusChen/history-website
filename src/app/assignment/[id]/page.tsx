@@ -39,16 +39,16 @@ export default function AssignmentPage(props: PageProps) {
   if (assignment === null) return <p className="p-4">Loading or assignment not found.</p>;
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Top Banner */}
-      <header className="w-full bg-[#003B71] text-white py-6 px-8 shadow">
+    <div className="flex h-screen flex-col">
+      {/* Top Bar - fixed height */}
+      <header className="w-full bg-[#003B71] text-white py-6 px-8 shadow shrink-0">
         <h1 className="text-2xl font-bold">{assignment.title}</h1>
       </header>
 
-      {/* Main layout: Sidebar + Content */}
+      {/* Content area below header */}
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside className="w-72 bg-white dark:bg-gray-800 border-r dark:border-gray-700 px-6 py-6 text-gray-900 dark:text-gray-200 overflow-y-auto">
+        {/* Sidebar - fixed width, full height, no scroll */}
+        <aside className="w-72 shrink-0 bg-white dark:bg-gray-800 border-r dark:border-gray-700 px-6 py-6 text-gray-900 dark:text-gray-200">
           <button
             onClick={() => router.push("/")}
             className="mb-6 flex items-center gap-2 text-sm px-4 py-2 border border-gray-300 dark:border-white text-gray-800 dark:text-white rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition"
@@ -56,7 +56,8 @@ export default function AssignmentPage(props: PageProps) {
             <span className="text-lg">←</span>
             <span>Back to Assignments</span>
           </button>
-          
+
+          {/* Sidebar content */}
           <div className="mb-4">
             <h2 className="font-semibold text-sm text-gray-500">Civil War</h2>
             <p>{assignment.civilwar}</p>
@@ -72,81 +73,71 @@ export default function AssignmentPage(props: PageProps) {
             <p>{assignment.type}</p>
           </div>
 
-          <div className="mb-4">
-            <h2 className="font-semibold text-sm text-gray-500">Description</h2>
-            <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
-              {assignment.description}
-            </p>
-          </div>
-
           <button
-            onClick={async () => {
-              const html = document.documentElement;
-              html.classList.toggle("dark");
-            }}
+            onClick={() => document.documentElement.classList.toggle("dark")}
             className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
           >
             🌓 Toggle Theme
           </button>
         </aside>
 
-        {/* Main Content */}
+        {/* Scrollable content area */}
         <main className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
-          <div className="rounded-lg overflow-hidden shadow">
+          <div className="rounded-lg overflow-hidden shadow space-y-6">
             {assignment.link ? (
               <>
-                {assignment.link.endsWith(".pdf") && (
+                {/* Main File Rendering */}
+                {assignment.link.endsWith(".pdf") ? (
                   <iframe
                     src={assignment.link}
-                    className="w-full h-[80vh] border rounded"
+                    className="w-full min-h-[600px] h-[80vh] border rounded"
                     title="Assignment PDF"
                   />
-                )}
+                ) : (
+                  <>
+                    {/* Media Content (Image, Video, etc.) */}
+                    {assignment.link.endsWith(".mp4") && (
+                      <video controls className="w-full rounded h-[80vh]">
+                        <source src={assignment.link} type="video/mp4" />
+                      </video>
+                    )}
 
-                {assignment.link.endsWith(".mp4") && (
-                  <video controls className="w-full rounded h-[80vh]">
-                    <source src={assignment.link} type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
+                    {(assignment.link.endsWith(".jpg") || assignment.link.endsWith(".png")) && (
+                      <img
+                        src={assignment.link}
+                        alt="Assignment Image"
+                        className="max-w-full max-h-[600px] w-auto h-auto mx-auto rounded shadow"
+                      />
+                    )}
 
-                {(assignment.link.endsWith(".jpg") ||
-                  assignment.link.endsWith(".png")) && (
-                  <img
-                    src={assignment.link}
-                    alt="Assignment Image"
-                    className="w-full h-auto rounded shadow"
-                  />
-                )}
+                    {assignment.link.endsWith(".mp3") && (
+                      <div className="p-4 bg-white dark:bg-gray-800 rounded">
+                        <audio controls className="w-full">
+                          <source src={assignment.link} type="audio/mp3" />
+                        </audio>
+                      </div>
+                    )}
 
-                {assignment.link.endsWith(".mp3") && (
-                  <div className="p-4 bg-white dark:bg-gray-800 rounded">
-                    <audio controls className="w-full">
-                      <source src={assignment.link} type="audio/mp3" />
-                      Your browser does not support the audio element.
-                    </audio>
-                  </div>
-                )}
+                    {assignment.link.endsWith(".txt") && (
+                      <iframe
+                        src={assignment.link}
+                        className="w-full h-[80vh] border rounded bg-white text-sm"
+                        title="Assignment Text"
+                      />
+                    )}
 
-                {assignment.link.endsWith(".txt") && (
-                  <iframe
-                    src={assignment.link}
-                    className="w-full h-[80vh] border rounded bg-white text-sm"
-                    title="Assignment Text"
-                  />
-                )}
-
-                {![".pdf", ".mp4", ".jpg", ".png", ".mp3", ".txt"].some(ext =>
-                  assignment.link.endsWith(ext)
-                ) && (
-                  <a
-                    href={assignment.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 underline"
-                  >
-                    Open Assignment Link
-                  </a>
+                    {/* Artist Statement (Only if main is not a PDF and statement exists) */}
+                    {assignment.artistStatement && (
+                      <div>
+                        <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>
+                        <iframe
+                          src={assignment.artistStatement}
+                          className="w-full min-h-[600px] h-[60vh] border rounded bg-white"
+                          title="Artist Statement"
+                        />
+                      </div>
+                    )}
+                  </>
                 )}
               </>
             ) : (

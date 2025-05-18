@@ -5,18 +5,31 @@
     "civilwar": "El Salvador",
     "description": "hehehe",
     "link": "/assignments/elsalvadorpaper.pdf",
-    "authors": "2025-05-18",
+    "authors": "Celine Moshrefi, Lulu Grier-Kim, and Derek Chen",
     "type": "Research Paper",
-    "image": "/images/el-salvador.jpg"
+    "image": "/images/el-salvador.jpg",
+    "artistStatement": "none"
   },
   {
     "id": "2",
+    "title": "The Spanish Civil War Propaganda Poster",
+    "civilwar": "Spain",
+    "description": "n/a",
+    "link": "/assignments/shio/spainimage.png",
+    "authors": "Shio Iwai",
+    "type": "Poster",
+    "image": "/assignments/shio/spainimage.png",
+    "artistStatement": "/assignments/shio/ChoiceProject.pdf"
+  },
+  {
+    "id": "3",
     "title": "Cyberpunk",
     "civilwar": "Vietnam",
     "description": "hehehe",
     "link": "/assignments/cyberpunk.mp4",
     "authors": "2025-05-18",
     "type": "Documentary",
-    "image": ""
+    "image": "",
+    "artistStatement": "/assignments/cyberpunkstatement.pdf"
   }
 ]
