@@ -8,6 +8,14 @@ interface PageProps {
   params: Promise<{ id: string }>;
 }
 
+function extractYouTubeID(url: string): string {
+  const regExp =
+    /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^\s&?]+)/;
+  const match = url.match(regExp);
+  return match ? match[1] : "";
+}
+
+
 export default function AssignmentPage(props: PageProps) {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [assignment, setAssignment] = useState<Assignment | null>(null);
@@ -100,6 +108,17 @@ export default function AssignmentPage(props: PageProps) {
                       <video controls className="w-full rounded h-[80vh]">
                         <source src={assignment.link} type="video/mp4" />
                       </video>
+                    )}
+
+                    {(assignment.link.includes("youtube.com/watch") || assignment.link.includes("youtu.be")) && (
+                      <div className="w-full mb-6" style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                        <iframe
+                          src={`https://www.youtube.com/embed/${extractYouTubeID(assignment.link)}`}
+                          className="absolute top-0 left-0 w-full h-full rounded"
+                          title="YouTube Video"
+                          allowFullScreen
+                        />
+                      </div>
                     )}
 
                     {(assignment.link.endsWith(".jpg") || assignment.link.endsWith(".png")) && (
