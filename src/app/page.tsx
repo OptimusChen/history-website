@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation";
+import Hero from "@/components/Hero"; // adjust path as needed
 
 export interface Assignment {
   id: string;
@@ -65,27 +66,11 @@ export default function AssignmentList() {
 
   return (
     <>
-      {/* Top Bar */}
-      <header className="w-full bg-[#003B71] text-white px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-        <h1 className="text-xl font-bold tracking-tight text-white">Mr. Vacca Advanced History Assignments</h1>
-
-        {/* Optional items */}
-        <nav className="flex items-center gap-4 text-sm text-gray-600">
-          <button
-            onClick={() => {
-              const html = document.documentElement;
-              html.classList.toggle("dark");
-            }}
-            className="ml-4 text-sm px-3 py-1 border border-white text-white rounded transition hover:bg-white hover:text-[#003B71]"
-          >
-            🌓 Toggle Theme
-          </button>
-        </nav>
-      </header>
+      <Hero />
       
-      <div className="flex min-h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
         {/* Sidebar */}
-        <aside className="w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 rounded-r-lg text-gray-900 dark:text-gray-200">
+        <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200">
           <h2 className="text-xl font-bold mb-4">Filters</h2>
 
           <div className="mb-6">
@@ -127,10 +112,22 @@ export default function AssignmentList() {
               </label>
             ))}
           </div>
+
+          <nav className="flex items-center gap-4 text-sm text-gray-600">
+            <button
+              onClick={() => {
+                const html = document.documentElement;
+                html.classList.toggle("dark");
+              }}
+              className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
+            >
+              🌓 Toggle Theme
+            </button>
+          </nav>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-8">
+        <main className="flex-1 h-full overflow-y-auto p-8">
           {/* Show search bar again for mobile */}
           <div className="lg:hidden mb-6">
             <Input
