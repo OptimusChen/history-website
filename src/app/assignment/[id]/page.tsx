@@ -30,11 +30,26 @@ function ListComponent(items: string[], assignment: Assignment) {
                 <>
                   {/* Main File Rendering */}
                   {link.endsWith(".pdf") ? (
-                    <iframe
-                      src={link}
-                      className="w-full min-h-[600px] h-[80vh] border rounded"
-                      title="Assignment PDF"
-                    />
+                    <div>
+                      {assignment.type === "Research Paper" ? (
+                        <iframe
+                          src={link}
+                          className="w-full min-h-[600px] h-[80vh] border rounded"
+                          title="Assignment PDF"
+                          loading="lazy"
+                        />
+                      ) : (
+                        <div className="w-full flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
+                          <iframe
+                            src={link + "#toolbar=0"}
+                            className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
+                            title="Assignment PDF"
+                            loading="lazy"
+                            style={{ background: "white" }}
+                          />
+                        </div>
+                      )}
+                    </div>
                   ) : (
                     <>
                       {/* Media Content (Image, Video, etc.) */}
@@ -92,11 +107,15 @@ function ListComponent(items: string[], assignment: Assignment) {
           listItems.push(
             <div key="artist-statement" className="mt-10">
               <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>
-              <iframe
-                src={assignment.artistStatement}
-                className="w-full min-h-[600px] h-[60vh] border rounded bg-white"
-                title="Artist Statement"
-              />
+              <div className="w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
+                <iframe
+                  src={assignment.artistStatement + "#toolbar=0"}
+                  className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
+                  title="Assignment Artist Statement"
+                  loading="lazy"
+                  style={{ background: "white" }}
+                />
+              </div>
             </div>
           );
         }
