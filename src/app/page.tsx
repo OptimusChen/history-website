@@ -73,7 +73,7 @@ export default function AssignmentList() {
       <Hero />
       
       <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
-        <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200">
+        <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200 flex flex-col">
           <h2 className="text-xl font-bold mb-4">Filters</h2>
 
           <div className="mb-6">
@@ -116,7 +116,7 @@ export default function AssignmentList() {
             ))}
           </div>
 
-          <nav className="flex items-center gap-4 text-sm text-gray-600 mb-20">
+          <nav className="flex items-center gap-4 text-sm text-gray-600">
             <button
               onClick={() => {
                 const html = document.documentElement;
@@ -128,7 +128,7 @@ export default function AssignmentList() {
             </button>
           </nav>
 
-          <p className="mt-0 text-xs">
+          <p className="mt-auto text-xs">
             Built by{' '}
             <a
               href="https://github.com/OptimusChen"

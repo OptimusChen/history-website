@@ -12,7 +12,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative w-full py-24 px-6 bg-[#003B71] text-white text-center overflow-hidden">
+    <section className="relative w-full py-12 px-6 bg-[#003B71] text-white text-center overflow-hidden">
       {/* Particle Background */}
       <Particles
         id="tsparticles"
