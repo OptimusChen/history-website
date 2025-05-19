@@ -31,5 +31,16 @@
     "type": "Choice Project",
     "image": "/assignments/celine/celineproject.png",
     "artistStatement": "/assignments/celine/as.pdf"
+  },
+  {
+    "id": "4",
+    "title": "El Salvador Civil War Timeline",
+    "civilwar": "El Salvador",
+    "description": "n/a",
+    "link": "/assignments/jackson/jacksonproject.pdf",
+    "authors": "Jackson Bluth",
+    "type": "Choice Project",
+    "image": "/assignments/jackson/jacksonthumbnail.png",
+    "artistStatement": "none"
   }
 ]
