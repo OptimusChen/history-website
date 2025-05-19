@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input"
 import { useRouter } from "next/navigation";
 import Hero from "@/components/Hero"; // adjust path as needed
 import { AnimatePresence, motion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/next"
 
 export interface Assignment {
   id: string;
@@ -68,6 +69,7 @@ export default function AssignmentList() {
 
   return (
     <>
+      <Analytics />
       <Hero />
       
       <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">

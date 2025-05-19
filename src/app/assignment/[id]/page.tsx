@@ -3,6 +3,7 @@
 import { Assignment } from "../../page";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+// import { List } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -15,6 +16,96 @@ function extractYouTubeID(url: string): string {
   return match ? match[1] : "";
 }
 
+function ListComponent(items: string[], assignment: Assignment) {
+  return (
+    <ul>
+      {(() => {
+        const listItems = [];
+        for (let i = 0; i < items.length; i++) {
+          const link = items[i].trim();
+          console.log(link);
+          listItems.push(
+            <div className="rounded-lg overflow-hidden shadow space-y-6">
+              {link ? (
+                <>
+                  {/* Main File Rendering */}
+                  {link.endsWith(".pdf") ? (
+                    <iframe
+                      src={link}
+                      className="w-full min-h-[600px] h-[80vh] border rounded"
+                      title="Assignment PDF"
+                    />
+                  ) : (
+                    <>
+                      {/* Media Content (Image, Video, etc.) */}
+                      {link.endsWith(".mp4") && (
+                        <video controls className="w-full rounded h-[80vh]">
+                          <source src={link} type="video/mp4" />
+                        </video>
+                      )}
+
+                      {(link.includes("youtube.com/watch") || link.includes("youtu.be")) && (
+                        <div className="w-full mb-6" style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                          <iframe
+                            src={`https://www.youtube.com/embed/${extractYouTubeID(link)}`}
+                            className="absolute top-0 left-0 w-full h-full rounded"
+                            title="YouTube Video"
+                            allowFullScreen
+                          />
+                        </div>
+                      )}
+
+                      {(link.endsWith(".jpg") || link.endsWith(".png")) && (
+                        <img
+                          src={link}
+                          alt="Assignment Image"
+                          className="max-w-full max-h-[600px] w-auto h-auto mx-auto rounded shadow"
+                        />
+                      )}
+
+                      {link.endsWith(".mp3") && (
+                        <div className="p-4 bg-white dark:bg-gray-800 rounded">
+                          <audio controls className="w-full">
+                            <source src={link} type="audio/mp3" />
+                          </audio>
+                        </div>
+                      )}
+
+                      {link.endsWith(".txt") && (
+                        <iframe
+                          src={link}
+                          className="w-full h-[80vh] border rounded bg-white text-sm"
+                          title="Assignment Text"
+                        />
+                      )}
+                    </>
+                  )}
+                </>
+              ) : (
+                <p className="text-gray-500">No file provided for this assignment.</p>
+              )}
+            </div>
+          );
+        }
+
+        if (assignment.artistStatement) {
+          listItems.push(
+            <div key="artist-statement" className="mt-10">
+              <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>
+              <iframe
+                src={assignment.artistStatement}
+                className="w-full min-h-[600px] h-[60vh] border rounded bg-white"
+                title="Artist Statement"
+              />
+            </div>
+          );
+        }
+
+        return listItems;
+      })()}
+    </ul>
+  );
+}
 
 export default function AssignmentPage(props: PageProps) {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
@@ -45,6 +136,8 @@ export default function AssignmentPage(props: PageProps) {
   }, [assignments, props.params]);
 
   if (assignment === null) return <p className="p-4">Loading or assignment not found.</p>;
+
+  const links = assignment.link.split(";")
 
   return (
     <div className="flex h-screen flex-col">
@@ -91,78 +184,7 @@ export default function AssignmentPage(props: PageProps) {
 
         {/* Scrollable content area */}
         <main className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
-          <div className="rounded-lg overflow-hidden shadow space-y-6">
-            {assignment.link ? (
-              <>
-                {/* Main File Rendering */}
-                {assignment.link.endsWith(".pdf") ? (
-                  <iframe
-                    src={assignment.link}
-                    className="w-full min-h-[600px] h-[80vh] border rounded"
-                    title="Assignment PDF"
-                  />
-                ) : (
-                  <>
-                    {/* Media Content (Image, Video, etc.) */}
-                    {assignment.link.endsWith(".mp4") && (
-                      <video controls className="w-full rounded h-[80vh]">
-                        <source src={assignment.link} type="video/mp4" />
-                      </video>
-                    )}
-
-                    {(assignment.link.includes("youtube.com/watch") || assignment.link.includes("youtu.be")) && (
-                      <div className="w-full mb-6" style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
-                        <iframe
-                          src={`https://www.youtube.com/embed/${extractYouTubeID(assignment.link)}`}
-                          className="absolute top-0 left-0 w-full h-full rounded"
-                          title="YouTube Video"
-                          allowFullScreen
-                        />
-                      </div>
-                    )}
-
-                    {(assignment.link.endsWith(".jpg") || assignment.link.endsWith(".png")) && (
-                      <img
-                        src={assignment.link}
-                        alt="Assignment Image"
-                        className="max-w-full max-h-[600px] w-auto h-auto mx-auto rounded shadow"
-                      />
-                    )}
-
-                    {assignment.link.endsWith(".mp3") && (
-                      <div className="p-4 bg-white dark:bg-gray-800 rounded">
-                        <audio controls className="w-full">
-                          <source src={assignment.link} type="audio/mp3" />
-                        </audio>
-                      </div>
-                    )}
-
-                    {assignment.link.endsWith(".txt") && (
-                      <iframe
-                        src={assignment.link}
-                        className="w-full h-[80vh] border rounded bg-white text-sm"
-                        title="Assignment Text"
-                      />
-                    )}
-
-                    {/* Artist Statement (Only if main is not a PDF and statement exists) */}
-                    {assignment.artistStatement && (
-                      <div>
-                        <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>
-                        <iframe
-                          src={assignment.artistStatement}
-                          className="w-full min-h-[600px] h-[60vh] border rounded bg-white"
-                          title="Artist Statement"
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
-              </>
-            ) : (
-              <p className="text-gray-500">No file provided for this assignment.</p>
-            )}
-          </div>
+            {ListComponent(links, assignment)}
         </main>
       </div>
     </div>
