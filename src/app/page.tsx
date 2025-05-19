@@ -68,7 +68,7 @@ export default function AssignmentList() {
   });
 
   return (
-    <>
+    <div className="flex h-screen flex-col">
       <Analytics />
       <Hero />
       
@@ -116,7 +116,7 @@ export default function AssignmentList() {
             ))}
           </div>
 
-          <nav className="flex items-center gap-4 text-sm text-gray-600">
+          <nav className="flex items-center gap-4 text-sm text-gray-600 mb-20">
             <button
               onClick={() => {
                 const html = document.documentElement;
@@ -127,18 +127,22 @@ export default function AssignmentList() {
               🌓 Toggle Theme
             </button>
           </nav>
+
+          <p className="mt-0 text-xs">
+            Built by{' '}
+            <a
+              href="https://github.com/OptimusChen"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:underline dark:text-blue-400"
+            >
+              Derek Chen
+            </a>{' '}
+            — © {new Date().getFullYear()}
+          </p>
         </aside>
 
         <main className="flex-1 h-full overflow-y-auto p-8">
-          <div className="lg:hidden mb-6">
-            <Input
-              type="text"
-              placeholder="El Salvador, Civil War, Author..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-
           <AnimatePresence mode="wait">
             <motion.div
               key="assignments"
@@ -213,19 +217,6 @@ export default function AssignmentList() {
           </AnimatePresence>
         </main>
       </div>
-
-      <footer className="text-center text-sm text-gray-500 dark:text-gray-400 py-6 border-t dark:border-gray-700 mt-12">
-        Built by{' '}
-        <a
-          href="https://github.com/OptimusChen"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-600 hover:underline dark:text-blue-400"
-        >
-          Derek Chen
-        </a>{' '}
-        — © {new Date().getFullYear()}
-      </footer>
-    </>
+    </div>
   );
 }
