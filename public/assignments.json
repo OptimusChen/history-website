@@ -42,5 +42,16 @@
     "type": "Choice Project",
     "image": "/assignments/jackson/jacksonthumbnail.png",
     "artistStatement": "none"
+  },
+  {
+    "id": "5",
+    "title": "Homage to Catalonia and the Spanish Civil War",
+    "civilwar": "Spain",
+    "description": "n/a",
+    "link": "/assignments/brian/brianproject.pdf",
+    "authors": "Brian Lazarus",
+    "type": "Choice Project",
+    "image": "/assignments/brian/brianthumbnail.png",
+    "artistStatement": "none"
   }
 ]
