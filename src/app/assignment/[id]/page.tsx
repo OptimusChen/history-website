@@ -88,7 +88,7 @@ function ListComponent(items: string[], assignment: Assignment) {
           );
         }
 
-        if (assignment.artistStatement) {
+        if (assignment.artistStatement && assignment.artistStatement !== "none") {
           listItems.push(
             <div key="artist-statement" className="mt-10">
               <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>

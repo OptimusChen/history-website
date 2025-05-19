@@ -190,7 +190,7 @@ export default function AssignmentList() {
                     </div>
 
                     <CardContent className="p-4 pb-0 pt-2 relative z-20">
-                      <p className="text-l font-semibold mb-2 text-gray-800 dark:text-white">
+                      <p className="text-l font-semibold mb-2 text-gray-800 dark:text-white truncate max-w-xs">
                         {assignment.title}
                       </p>
                       <p className="text-sm text-gray-500 dark:text-gray-400">
