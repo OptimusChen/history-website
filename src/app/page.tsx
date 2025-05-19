@@ -109,7 +109,7 @@ export default function AssignmentList() {
 
               <div className="mb-6">
                 <h3 className="font-semibold mb-2">Assignment Type</h3>
-                {["Research Paper", "Documentary", "Map", "Other"].map((type) => (
+                {["Research Paper", "Documentary", "Choice Project"].map((type) => (
                   <label key={type} className="block text-sm mb-1">
                     <input
                       type="checkbox"

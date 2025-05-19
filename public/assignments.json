@@ -17,19 +17,19 @@
     "description": "n/a",
     "link": "/assignments/shio/spainimage.png",
     "authors": "Shio Iwai",
-    "type": "Poster",
+    "type": "Choice Project",
     "image": "/assignments/shio/spainimage.png",
     "artistStatement": "/assignments/shio/ChoiceProject.pdf"
   },
   {
     "id": "3",
-    "title": "Cyberpunk",
-    "civilwar": "Vietnam",
-    "description": "hehehe",
-    "link": "https://www.youtube.com/watch?v=ChscJsv44MM&ab_channel=PossibleHistory",
-    "authors": "2025-05-18",
-    "type": "Documentary",
-    "image": "",
-    "artistStatement": "/assignments/cyberpunkstatement.pdf"
+    "title": "Paper Mâché Mumuye Mask",
+    "civilwar": "Nigeria",
+    "description": "n/a",
+    "link": "/assignments/celine/celineproject.png",
+    "authors": "Celine Moshrefi",
+    "type": "Choice Project",
+    "image": "/assignments/celine/celineproject.png",
+    "artistStatement": "/assignments/celine/as.pdf"
   }
 ]
