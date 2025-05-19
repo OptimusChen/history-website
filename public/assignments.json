@@ -53,5 +53,16 @@
     "type": "Choice Project",
     "image": "/assignments/brian/brianthumbnail.png",
     "artistStatement": "none"
+  },
+  {
+    "id": "6",
+    "title": "Vietnam War Timeline",
+    "civilwar": "Vietnam",
+    "description": "n/a",
+    "link": "/assignments/sid/sidproject.pdf;/assignments/sid/sidsources.pdf",
+    "authors": "Sid Modgil",
+    "type": "Choice Project",
+    "image": "/assignments/sid/sidthumbnail.png",
+    "artistStatement": "none"
   }
 ]
