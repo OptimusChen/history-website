@@ -70,81 +70,100 @@ export default function AssignmentList() {
     <>
       <Hero />
       
-      <AnimatePresence mode="wait">
-        <motion.div
-          key="assignments"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
-            <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200">
-              <h2 className="text-xl font-bold mb-4">Filters</h2>
+      <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
+        <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200">
+          <h2 className="text-xl font-bold mb-4">Filters</h2>
 
-              <div className="mb-6">
-                <label className="block text-sm font-medium mb-2">Search</label>
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+          <div className="mb-6">
+            <label className="block text-sm font-medium mb-2">Search</label>
+            <Input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-6">
+            <h3 className="font-semibold mb-2">Civil War</h3>
+            {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
+              <label key={war} className="block text-sm mb-1">
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  checked={selectedWars.includes(war)}
+                  onChange={() => toggleFilter(war, selectedWars, setSelectedWars)}
                 />
-              </div>
+                {war}
+              </label>
+            ))}
+          </div>
 
-              <div className="mb-6">
-                <h3 className="font-semibold mb-2">Civil War</h3>
-                {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
-                  <label key={war} className="block text-sm mb-1">
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={selectedWars.includes(war)}
-                      onChange={() => toggleFilter(war, selectedWars, setSelectedWars)}
-                    />
-                    {war}
-                  </label>
-                ))}
-              </div>
-
-              <div className="mb-6">
-                <h3 className="font-semibold mb-2">Assignment Type</h3>
-                {["Research Paper", "Documentary", "Choice Project"].map((type) => (
-                  <label key={type} className="block text-sm mb-1">
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={selectedTypes.includes(type)}
-                      onChange={() => toggleFilter(type, selectedTypes, setSelectedTypes)}
-                    />
-                    {type}
-                  </label>
-                ))}
-              </div>
-
-              <nav className="flex items-center gap-4 text-sm text-gray-600">
-                <button
-                  onClick={() => {
-                    const html = document.documentElement;
-                    html.classList.toggle("dark");
-                  }}
-                  className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
-                >
-                  🌓 Toggle Theme
-                </button>
-              </nav>
-            </aside>
-
-            <main className="flex-1 h-full overflow-y-auto p-8">
-              <div className="lg:hidden mb-6">
-                <Input
-                  type="text"
-                  placeholder="El Salvador, Civil War, Author..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+          <div className="mb-6">
+            <h3 className="font-semibold mb-2">Assignment Type</h3>
+            {["Research Paper", "Documentary", "Choice Project"].map((type) => (
+              <label key={type} className="block text-sm mb-1">
+                <input
+                  type="checkbox"
+                  className="mr-2"
+                  checked={selectedTypes.includes(type)}
+                  onChange={() => toggleFilter(type, selectedTypes, setSelectedTypes)}
                 />
-              </div>
+                {type}
+              </label>
+            ))}
+          </div>
 
+          <nav className="flex items-center gap-4 text-sm text-gray-600">
+            <button
+              onClick={() => {
+                const html = document.documentElement;
+                html.classList.toggle("dark");
+              }}
+              className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
+            >
+              🌓 Toggle Theme
+            </button>
+          </nav>
+        </aside>
+
+        <main className="flex-1 h-full overflow-y-auto p-8">
+          <div className="lg:hidden mb-6">
+            <Input
+              type="text"
+              placeholder="El Salvador, Civil War, Author..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key="assignments"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.5 }}
+            >
+              {filteredAssignments.length === 0 ? (
+                <div className="text-center text-gray-500 dark:text-white mt-12 flex flex-col items-center gap-4">
+                  {/* Light mode image */}
+                  <img
+                    src="/images/confused-light.png"
+                    alt="No results"
+                    className="w-32 h-32 dark:hidden"
+                  />
+
+                  {/* Dark mode image */}
+                  <img
+                    src="/images/confused-dark.png"
+                    alt="No results"
+                    className="w-32 h-32 hidden dark:block"
+                  />
+
+                  <p>No assignments found. Try adjusting your filters or search terms.</p>
+                </div>
+              ) : (
               <div className="grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 {filteredAssignments.map((assignment, index) => (
                   <Card
@@ -187,23 +206,24 @@ export default function AssignmentList() {
                   </Card>
                 ))}
               </div>
-            </main>
-          </div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+        </main>
+      </div>
 
-          <footer className="text-center text-sm text-gray-500 dark:text-gray-400 py-6 border-t dark:border-gray-700 mt-12">
-            Built by{' '}
-            <a
-              href="https://github.com/OptimusChen"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline dark:text-blue-400"
-            >
-              Derek Chen
-            </a>{' '}
-            — © {new Date().getFullYear()}
-          </footer>
-        </motion.div>
-      </AnimatePresence>
+      <footer className="text-center text-sm text-gray-500 dark:text-gray-400 py-6 border-t dark:border-gray-700 mt-12">
+        Built by{' '}
+        <a
+          href="https://github.com/OptimusChen"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline dark:text-blue-400"
+        >
+          Derek Chen
+        </a>{' '}
+        — © {new Date().getFullYear()}
+      </footer>
     </>
   );
 }
