@@ -86,5 +86,16 @@
     "type": "Choice Project",
     "image": "/assignments/elena/elenathumbnail.png",
     "artistStatement": "none"
+  },
+  {
+    "id": "9",
+    "title": "Mateo Herrera",
+    "civilwar": "Spain",
+    "description": "n/a",
+    "link": "/assignments/kayla/kaylaproject.pdf",
+    "authors": "Kayla Aminpour",
+    "type": "Choice Project",
+    "image": "/assignments/kayla/kaylathumbnail.png",
+    "artistStatement": "none"
   }
 ]
