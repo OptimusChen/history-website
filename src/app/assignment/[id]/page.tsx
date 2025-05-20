@@ -18,12 +18,17 @@ function extractYouTubeID(url: string): string {
   return match ? match[1] : "";
 }
 
-function PDFEmbed({ src }: { src: string }) {
+function isMobile() {
+  return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+}
+
+function PDFEmbed({ src, type, mobile }: { src: string; type: string; mobile : boolean }) {
   const [error, setError] = useState(false);
   const [reloadKey, setReloadKey] = useState(0);
 
-  return (
-    <div className="relative w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2 min-h-[600px]">
+  if (mobile) {
+    return (
+      <div className="relative w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2 min-h-[600px]">
       {!error ? (
         <iframe
           key={reloadKey}
@@ -59,24 +64,55 @@ function PDFEmbed({ src }: { src: string }) {
         </div>
       )}
     </div>
+    );
+  }
+
+  // Render based on assignment type
+  if (type === "Research Paper") {
+    return (
+      <iframe
+        key={reloadKey}
+        src={src}
+        className="w-full min-h-[600px] h-[80vh] border rounded"
+        title="Assignment PDF"
+        loading="lazy"
+        onError={() => setError(true)}
+      />
+    );
+  }
+
+  // Default style for other types
+  return (
+    <div className="w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
+      <div className="w-full flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
+        <iframe
+          key={reloadKey}
+          src={src + "#toolbar=0"}
+          className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
+          title="Assignment PDF"
+          loading="lazy"
+          style={{ background: "white" }}
+          onError={() => setError(true)}
+        />
+      </div>
+    </div>
   );
 }
 
-function ListComponent(items: string[], assignment: Assignment) {
+function ListComponent(items: string[], assignment: Assignment, mb: boolean) {
   return (
     <ul>
       {(() => {
         const listItems = [];
         for (let i = 0; i < items.length; i++) {
           const link = items[i].trim();
-          console.log(link);
           listItems.push(
             <div className="rounded-lg overflow-hidden shadow space-y-6">
               {link ? (
                 <>
                   {/* Main File Rendering */}
                   {link.endsWith(".pdf") ? (
-                    <PDFEmbed src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(link)}`} />
+                    <PDFEmbed src={link} type={assignment.type} mobile={mb}/>
                   ) : (
                     <>
                       {/* Media Content (Image, Video, etc.) */}
@@ -134,7 +170,7 @@ function ListComponent(items: string[], assignment: Assignment) {
           listItems.push(
             <div key="artist-statement" className="mt-10">
               <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>
-              <PDFEmbed src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(assignment.artistStatement)}`} />
+                <PDFEmbed src={assignment.artistStatement} type={assignment.type} mobile={mb}/>
             </div>
           );
         }
@@ -263,7 +299,7 @@ export default function AssignmentPage(props: PageProps) {
 
         {/* Scrollable content area */}
         <main className="flex-1 overflow-y-auto p-6 bg-gray-50 dark:bg-gray-900">
-            {ListComponent(links, assignment)}
+            {ListComponent(links, assignment, isMobile())}
         </main>
       </div>
     </div>
