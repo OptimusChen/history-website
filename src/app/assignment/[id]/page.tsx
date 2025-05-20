@@ -43,39 +43,14 @@ function ListComponent(items: string[], assignment: Assignment) {
                 <>
                   {/* Main File Rendering */}
                   {link.endsWith(".pdf") ? (
-                    <div>
-                      {true ? (
-                        <div className="w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
-                          <iframe
-                            src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(link)}`}
-                            className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
-                            title="Assignment PDF"
-                            loading="lazy"
-                            style={{ background: "white" }}
-                          />
-                        </div>  
-                      ) : (
-                        <div>
-                          {assignment.type === "Research Paper" ? (
-                            <iframe
-                              src={link}
-                              className="w-full min-h-[600px] h-[80vh] border rounded"
-                              title="Assignment PDF"
-                              loading="lazy"
-                            />
-                          ) : (
-                            <div className="w-full flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
-                              <iframe
-                                src={link + "#toolbar=0"}
-                                className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
-                                title="Assignment PDF"
-                                loading="lazy"
-                                style={{ background: "white" }}
-                              />
-                            </div>
-                          )}
-                        </div>
-                      )}
+                    <div className="w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
+                      <iframe
+                        src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(link)}`}
+                        className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
+                        title="Assignment PDF"
+                        loading="lazy"
+                        style={{ background: "white" }}
+                      />
                     </div>
                   ) : (
                     <>
@@ -136,9 +111,9 @@ function ListComponent(items: string[], assignment: Assignment) {
               <h3 className="text-lg font-semibold mb-2 text-black text-center dark:text-white">Artist Statement</h3>
               <div className="w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
                 <iframe
-                  src={assignment.artistStatement + "#toolbar=0"}
+                  src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(assignment.artistStatement)}`}
                   className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
-                  title="Assignment Artist Statement"
+                  title="Assignment PDF"
                   loading="lazy"
                   style={{ background: "white" }}
                 />
