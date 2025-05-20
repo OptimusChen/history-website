@@ -75,5 +75,16 @@
     "type": "Choice Project",
     "image": "/assignments/colton/coltonthumbnail.png",
     "artistStatement": "/assignments/colton/coltonartiststatement.pdf"
+  },
+  {
+    "id": "8",
+    "title": "Spanish Civil War Interviews",
+    "civilwar": "Spain",
+    "description": "n/a",
+    "link": "https://youtu.be/R0r2JzkKrrg?si=H4-NkJSMUZAHpmsu;https://youtu.be/nSZBBmqfcuo?si=2_-Zh5KcLvc1RkbS;https://youtu.be/k1pISgJjS1c?si=W2-uuU_v4FBHdCzG;/assignments/elena/elenasources.pdf",
+    "authors": "Elena Portera-Bordelon",
+    "type": "Choice Project",
+    "image": "/assignments/elena/elenathumbnail.png",
+    "artistStatement": "none"
   }
 ]
