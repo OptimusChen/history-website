@@ -25,6 +25,7 @@ export default function AssignmentList() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedWars, setSelectedWars] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const router = useRouter();
 
@@ -71,9 +72,18 @@ export default function AssignmentList() {
     <div className="flex h-screen flex-col">
       <Analytics />
       <Hero />
+
+      {/* Mobile sidebar toggle button */}
+      <button
+        className="sm:hidden fixed top-4 left-4 z-40 bg-blue-600 text-white px-3 py-2 rounded shadow-lg"
+        onClick={() => setSidebarOpen(true)}
+        aria-label="Open filters"
+      >
+        ☰ Filters
+      </button>
       
       <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
-        <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200 flex flex-col">
+        <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200 flex flex-col hidden sm:flex">
           <h2 className="text-xl font-bold mb-4">Filters</h2>
 
           <div className="mb-6">
@@ -141,6 +151,90 @@ export default function AssignmentList() {
             — © {new Date().getFullYear()}
           </p>
         </aside>
+
+        {sidebarOpen && (
+          <div className="fixed inset-0 z-50 flex sm:hidden">
+            {/* Overlay */}
+            <div
+              className="fixed inset-0 bg-black bg-opacity-40"
+              onClick={() => setSidebarOpen(false)}
+            />
+            {/* Drawer */}
+            <aside className="relative w-64 h-full bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-lg p-6 text-gray-900 dark:text-gray-200 flex flex-col z-50">
+              <button
+                className="absolute top-2 right-2 text-gray-700 dark:text-gray-200 text-2xl"
+                onClick={() => setSidebarOpen(false)}
+                aria-label="Close filters"
+              >
+              </button>
+              
+              <div className="mb-6">
+                <label className="block text-sm font-medium mb-2">Search</label>
+                <Input
+                  type="text"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Civil War</h3>
+                {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
+                  <label key={war} className="block text-sm mb-1">
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={selectedWars.includes(war)}
+                      onChange={() => toggleFilter(war, selectedWars, setSelectedWars)}
+                    />
+                    {war}
+                  </label>
+                ))}
+              </div>
+
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Assignment Type</h3>
+                {["Research Paper", "Documentary", "Choice Project"].map((type) => (
+                  <label key={type} className="block text-sm mb-1">
+                    <input
+                      type="checkbox"
+                      className="mr-2"
+                      checked={selectedTypes.includes(type)}
+                      onChange={() => toggleFilter(type, selectedTypes, setSelectedTypes)}
+                    />
+                    {type}
+                  </label>
+                ))}
+              </div>
+
+              <nav className="flex items-center gap-4 text-sm text-gray-600">
+                <button
+                  onClick={() => {
+                    const html = document.documentElement;
+                    html.classList.toggle("dark");
+                  }}
+                  className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
+                >
+                  🌓 Toggle Theme
+                </button>
+              </nav>
+
+              <p className="mt-auto text-xs">
+                Built by{' '}
+                <a
+                  href="https://github.com/OptimusChen"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline dark:text-blue-400"
+                >
+                  Derek Chen
+                </a>{' '}
+                — © {new Date().getFullYear()}
+              </p>
+            </aside>
+          </div>
+        )}
 
         <main className="flex-1 h-full overflow-y-auto p-8">
           <AnimatePresence mode="wait">
