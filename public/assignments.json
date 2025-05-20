@@ -64,5 +64,16 @@
     "type": "Choice Project",
     "image": "/assignments/sid/sidthumbnail.png",
     "artistStatement": "none"
+  },
+  {
+    "id": "7",
+    "title": "Naval Pilot Helmet and Dog Tag",
+    "civilwar": "Vietnam",
+    "description": "n/a",
+    "link": "/assignments/colton/coltonproject.pdf",
+    "authors": "Colton Etheridge",
+    "type": "Choice Project",
+    "image": "/assignments/colton/coltonthumbnail.png",
+    "artistStatement": "/assignments/colton/coltonartiststatement.pdf"
   }
 ]
