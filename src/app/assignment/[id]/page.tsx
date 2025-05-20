@@ -18,18 +18,51 @@ function extractYouTubeID(url: string): string {
   return match ? match[1] : "";
 }
 
-// function isMobileDevice() {
-//   if (typeof window === "undefined") return false;
-//   return /Mobi|Android/i.test(window.navigator.userAgent);
-// }
+function PDFEmbed({ src }: { src: string }) {
+  const [error, setError] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  return (
+    <div className="relative w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2 min-h-[600px]">
+      {!error ? (
+        <iframe
+          key={reloadKey}
+          src={src}
+          className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
+          title="Assignment PDF"
+          loading="lazy"
+          style={{ background: "white" }}
+          onError={() => setError(true)}
+        />
+      ) : (
+        <div className="text-center w-full">
+          <p className="mb-4 text-red-600">Failed to load PDF preview.</p>
+          <button
+            className="px-4 py-2 bg-blue-600 text-white rounded"
+            onClick={() => {
+              setError(false);
+              setReloadKey((k) => k + 1);
+            }}
+          >
+            Reload Preview
+          </button>
+          <div className="mt-4">
+            <a
+              href={src}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              Open PDF in new tab
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 function ListComponent(items: string[], assignment: Assignment) {
-  // const [isMobile, setIsMobile] = useState(false);
-
-  // useEffect(() => {
-  //   setIsMobile(isMobileDevice());
-  // }, []);
-  
   return (
     <ul>
       {(() => {
@@ -43,15 +76,7 @@ function ListComponent(items: string[], assignment: Assignment) {
                 <>
                   {/* Main File Rendering */}
                   {link.endsWith(".pdf") ? (
-                    <div className="w-full max-w-3xl mx-auto flex justify-center items-center bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden p-2">
-                      <iframe
-                        src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(link)}`}
-                        className="w-full min-h-[600px] h-[80vh] rounded-xl border-0"
-                        title="Assignment PDF"
-                        loading="lazy"
-                        style={{ background: "white" }}
-                      />
-                    </div>
+                    <PDFEmbed src={`https://docs.google.com/gview?embedded=true&url=raw.githubusercontent.com/OptimusChen/history-website/main/public${encodeURIComponent(link)}`} />
                   ) : (
                     <>
                       {/* Media Content (Image, Video, etc.) */}
