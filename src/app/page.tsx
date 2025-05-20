@@ -20,6 +20,95 @@ export interface Assignment {
   artistStatement?: string;
 }
 
+function SidebarContent({
+  searchQuery,
+  setSearchQuery,
+  selectedWars,
+  selectedTypes,
+  toggleFilter,
+}: {
+  searchQuery: string;
+  setSearchQuery: (v: string) => void;
+  selectedWars: string[];
+  selectedTypes: string[];
+  toggleFilter: (
+    value: string,
+    current: string[],
+    type: string
+  ) => void;
+}) {
+  return (
+    <>
+      <h2 className="text-xl font-bold mb-4">Filters</h2>
+
+      <div className="mb-6">
+        <label className="block text-sm font-medium mb-2">Search</label>
+        <Input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      <div className="mb-6">
+        <h3 className="font-semibold mb-2">Civil War</h3>
+        {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
+          <label key={war} className="block text-sm mb-1">
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={selectedWars.includes(war)}
+              onChange={() => toggleFilter(war, selectedWars, "wars")}
+            />
+            {war}
+          </label>
+        ))}
+      </div>
+
+      <div className="mb-6">
+        <h3 className="font-semibold mb-2">Assignment Type</h3>
+        {["Research Paper", "Documentary", "Choice Project"].map((type) => (
+          <label key={type} className="block text-sm mb-1">
+            <input
+              type="checkbox"
+              className="mr-2"
+              checked={selectedTypes.includes(type)}
+              onChange={() => toggleFilter(type, selectedTypes, "types")}
+            />
+            {type}
+          </label>
+        ))}
+      </div>
+
+      <nav className="flex items-center gap-4 text-sm text-gray-600">
+        <button
+          onClick={() => {
+            const html = document.documentElement;
+            html.classList.toggle("dark");
+          }}
+          className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
+        >
+          🌓 Toggle Theme
+        </button>
+      </nav>
+
+      <p className="mt-auto text-xs">
+        Built by{' '}
+        <a
+          href="https://github.com/OptimusChen"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline dark:text-blue-400"
+        >
+          Derek Chen
+        </a>{' '}
+        — © {new Date().getFullYear()}
+      </p>
+    </>
+  );
+}
+
 export default function AssignmentList() {
   const [assignments, setAssignments] = useState<Assignment[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,16 +128,22 @@ export default function AssignmentList() {
   const toggleFilter = (
     value: string,
     current: string[],
-    setter: React.Dispatch<React.SetStateAction<string[]>>
+    type : string
   ) => {
     const lowerValue = value.toLowerCase();
     const normalized = current.map((v) => v.toLowerCase());
 
     if (normalized.includes(lowerValue)) {
       // remove (preserve original casing of stored values)
-      setter(current.filter((v) => v.toLowerCase() !== lowerValue));
+      if (type === "wars")
+        setSelectedWars(current.filter((v) => v.toLowerCase() !== lowerValue));
+      if (type === "types")
+        setSelectedTypes(current.filter((v) => v.toLowerCase() !== lowerValue));
     } else {
-      setter([...current, value]);
+      if (type === "wars")
+        setSelectedWars([...current, value]);
+      if (type === "types")
+        setSelectedTypes([...current, value]);
     }
   };
  
@@ -84,72 +179,13 @@ export default function AssignmentList() {
       
       <div className="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
         <aside className="w-64 h-full overflow-y-auto bg-white dark:bg-gray-800 border-r dark:border-gray-700 shadow-sm p-6 text-gray-900 dark:text-gray-200 flex flex-col hidden sm:flex">
-          <h2 className="text-xl font-bold mb-4">Filters</h2>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2">Search</label>
-            <Input
-              type="text"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
-          </div>
-
-          <div className="mb-6">
-            <h3 className="font-semibold mb-2">Civil War</h3>
-            {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
-              <label key={war} className="block text-sm mb-1">
-                <input
-                  type="checkbox"
-                  className="mr-2"
-                  checked={selectedWars.includes(war)}
-                  onChange={() => toggleFilter(war, selectedWars, setSelectedWars)}
-                />
-                {war}
-              </label>
-            ))}
-          </div>
-
-          <div className="mb-6">
-            <h3 className="font-semibold mb-2">Assignment Type</h3>
-            {["Research Paper", "Documentary", "Choice Project"].map((type) => (
-              <label key={type} className="block text-sm mb-1">
-                <input
-                  type="checkbox"
-                  className="mr-2"
-                  checked={selectedTypes.includes(type)}
-                  onChange={() => toggleFilter(type, selectedTypes, setSelectedTypes)}
-                />
-                {type}
-              </label>
-            ))}
-          </div>
-
-          <nav className="flex items-center gap-4 text-sm text-gray-600">
-            <button
-              onClick={() => {
-                const html = document.documentElement;
-                html.classList.toggle("dark");
-              }}
-              className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
-            >
-              🌓 Toggle Theme
-            </button>
-          </nav>
-
-          <p className="mt-auto text-xs">
-            Built by{' '}
-            <a
-              href="https://github.com/OptimusChen"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 hover:underline dark:text-blue-400"
-            >
-              Derek Chen
-            </a>{' '}
-            — © {new Date().getFullYear()}
-          </p>
+          <SidebarContent
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            selectedWars={selectedWars}
+            selectedTypes={selectedTypes}
+            toggleFilter={toggleFilter}
+          />
         </aside>
 
         {sidebarOpen && (
@@ -166,72 +202,18 @@ export default function AssignmentList() {
                 onClick={() => setSidebarOpen(false)}
                 aria-label="Close filters"
               >
+                ×
               </button>
               
-              <div className="mb-6">
-                <label className="block text-sm font-medium mb-2">Search</label>
-                <Input
-                  type="text"
-                  placeholder="Search..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </div>
+              
 
-              <div className="mb-6">
-                <h3 className="font-semibold mb-2">Civil War</h3>
-                {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
-                  <label key={war} className="block text-sm mb-1">
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={selectedWars.includes(war)}
-                      onChange={() => toggleFilter(war, selectedWars, setSelectedWars)}
-                    />
-                    {war}
-                  </label>
-                ))}
-              </div>
-
-              <div className="mb-6">
-                <h3 className="font-semibold mb-2">Assignment Type</h3>
-                {["Research Paper", "Documentary", "Choice Project"].map((type) => (
-                  <label key={type} className="block text-sm mb-1">
-                    <input
-                      type="checkbox"
-                      className="mr-2"
-                      checked={selectedTypes.includes(type)}
-                      onChange={() => toggleFilter(type, selectedTypes, setSelectedTypes)}
-                    />
-                    {type}
-                  </label>
-                ))}
-              </div>
-
-              <nav className="flex items-center gap-4 text-sm text-gray-600">
-                <button
-                  onClick={() => {
-                    const html = document.documentElement;
-                    html.classList.toggle("dark");
-                  }}
-                  className="ml-4 text-sm px-3 py-1 border border-gray text-gray dark:text-white dark:border-white rounded transition"
-                >
-                  🌓 Toggle Theme
-                </button>
-              </nav>
-
-              <p className="mt-auto text-xs">
-                Built by{' '}
-                <a
-                  href="https://github.com/OptimusChen"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-600 hover:underline dark:text-blue-400"
-                >
-                  Derek Chen
-                </a>{' '}
-                — © {new Date().getFullYear()}
-              </p>
+              <SidebarContent
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                selectedWars={selectedWars}
+                selectedTypes={selectedTypes}
+                toggleFilter={toggleFilter}
+              />
             </aside>
           </div>
         )}
