@@ -53,7 +53,7 @@ function SidebarContent({
 
       <div className="mb-6">
         <h3 className="font-semibold mb-2">Civil War</h3>
-        {["Spain", "Vietnam", "El Salvador", "Nigeria"].map((war) => (
+        {["Spain", "Vietnam", "El Salvador", "Nigeria", "Ethiopia"].map((war) => (
           <label key={war} className="block text-sm mb-1">
             <input
               type="checkbox"

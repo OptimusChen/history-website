@@ -97,5 +97,16 @@
     "type": "Choice Project",
     "image": "/assignments/kayla/kaylathumbnail.png",
     "artistStatement": "none"
+  },
+  {
+    "id": "10",
+    "title": "Traditional Ethiopian Dinner Platter",
+    "civilwar": "Ethiopia",
+    "description": "n/a",
+    "link": "/assignments/lulu/luluproject.png",
+    "authors": "Lulu Grier-Kim",
+    "type": "Choice Project",
+    "image": "/assignments/lulu/luluproject.png",
+    "artistStatement": "/assignments/lulu/luluartiststatement.pdf"
   }
 ]
