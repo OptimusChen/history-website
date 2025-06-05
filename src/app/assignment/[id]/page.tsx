@@ -18,6 +18,25 @@ function extractYouTubeID(url: string): string {
   return match ? match[1] : "";
 }
 
+function extractDriveFileID(url: string) :string | null {
+    let id = null;
+    
+    // Match /d/FILE_ID/ in the URL
+    let match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+        id = match[1];
+    } else {
+        // Otherwise, try id=FILE_ID
+        match = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (match && match[1]) {
+            id = match[1];
+        }
+    }
+
+    return id;
+}
+
+
 function isMobile() {
   return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
 }
@@ -128,6 +147,17 @@ function ListComponent(items: string[], assignment: Assignment, mb: boolean) {
                             src={`https://www.youtube.com/embed/${extractYouTubeID(link)}`}
                             className="absolute top-0 left-0 w-full h-full rounded"
                             title="YouTube Video"
+                            allowFullScreen
+                          />
+                        </div>
+                      )}
+
+                      {(link.includes("drive.google.com")) && (
+                        <div className="w-full mb-6" style={{ position: 'relative', paddingBottom: '56.25%', height: 0 }}>
+                          <iframe
+                            src={`https://drive.google.com/file/d/${extractDriveFileID(link)}/preview`}
+                            className="absolute top-0 left-0 w-full h-full rounded"
+                            title="Google Drive Video"
                             allowFullScreen
                           />
                         </div>

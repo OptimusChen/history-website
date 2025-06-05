@@ -108,5 +108,49 @@
     "type": "Choice Project",
     "image": "/assignments/lulu/luluproject.png",
     "artistStatement": "/assignments/lulu/luluartiststatement.pdf"
+  },
+  {
+    "id": "11",
+    "title": "The Legacy of the Biafran War",
+    "civilwar": "Nigeria",
+    "description": "n/a",
+    "link": "https://drive.google.com/file/d/1E1_UbOUJfxd2x8oHIEg-RsMRNqOPoUDD/view?usp=sharing",
+    "authors": "Elena Portera-Bordelon, Tallie Goldberg, Derek Chen",
+    "type": "Documentary",
+    "image": "/assignments/documentary/biafra.png",
+    "artistStatement": "none"
+  },
+  {
+    "id": "12",
+    "title": "The Aftermath of the Vietnam War",
+    "civilwar": "Vietnam",
+    "description": "n/a",
+    "link": "https://drive.google.com/file/d/1YaPNk7u8Sd_-v6OX49Jkewma1GrlycpB/view?usp=sharing",
+    "authors": "Lulu Grier-Kim, Shio Iwai",
+    "type": "Documentary",
+    "image": "/assignments/documentary/vietnam.png",
+    "artistStatement": "none"
+  },
+  {
+    "id": "13",
+    "title": "The Legacy of the Salvadoran Civil War",
+    "civilwar": "El Salvador",
+    "description": "n/a",
+    "link": "https://drive.google.com/file/d/1TY8DGpVrYVT0COVkZoCPxXHZBpp6TJI8/view?usp=sharing",
+    "authors": "Brian Lazarus, Kayla Aminpour, Sid Modgil",
+    "type": "Documentary",
+    "image": "/assignments/documentary/salvador.png",
+    "artistStatement": "none"
+  },
+  {
+    "id": "14",
+    "title": "Spanish Civil War Documentary",
+    "civilwar": "Spain",
+    "description": "n/a",
+    "link": "https://drive.google.com/file/d/1JcCgvC7jEBMC8C0ZUG29skhvjAGZht7F/view?usp=sharing",
+    "authors": "Colton Etheridge, Celine Moshrefi, Jackson Bluth",
+    "type": "Documentary",
+    "image": "/assignments/documentary/spain.png",
+    "artistStatement": "none"
   }
 ]
